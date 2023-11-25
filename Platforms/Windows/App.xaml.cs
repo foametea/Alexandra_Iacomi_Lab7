@@ -1,5 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
-
+using System;
+using Alexandra_Iacomi_Lab7.Data;
+using System.IO;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -10,11 +12,27 @@ namespace Alexandra_Iacomi_Lab7.WinUI;
 /// </summary>
 public partial class App : MauiWinUIApplication
 {
-	/// <summary>
-	/// Initializes the singleton application object.  This is the first line of authored code
-	/// executed, and as such is the logical equivalent of main() or WinMain().
-	/// </summary>
-	public App()
+    /// <summary>
+    /// Initializes the singleton application object.  This is the first line of authored code
+    /// executed, and as such is the logical equivalent of main() or WinMain().
+    /// </summary>
+    /// 
+    static ShoppingListDatabase database;
+    public static ShoppingListDatabase Database
+    {
+        get
+        {
+            if (database == null)
+            {
+                database = new
+               ShoppingListDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.
+               LocalApplicationData), "ShoppingList.db3"));
+            }
+            return database;
+        }
+    }
+
+    public App()
 	{
 		this.InitializeComponent();
 	}
